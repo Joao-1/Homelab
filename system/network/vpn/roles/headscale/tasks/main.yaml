@@ -1,0 +1,9 @@
+- import_tasks: install.yaml
+  tags:
+    - headscale
+    - headscale-install
+
+- import_tasks: configure.yaml
+  tags:
+    - headscale
+    - headscale-configure

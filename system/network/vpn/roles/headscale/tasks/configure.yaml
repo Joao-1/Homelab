@@ -1,0 +1,4 @@
+- name: Copy configuration file
+  copy:
+    content: "{{ headscale_config | to_yaml }}"
+    dest: "/etc/headscale/config.yaml"

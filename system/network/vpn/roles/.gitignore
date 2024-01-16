@@ -1,0 +1,7 @@
+# Ignore everything in roles dir
+/*
+# Except:
+!.gitignore
+!headscale
+!requirements.yaml
+!README.md

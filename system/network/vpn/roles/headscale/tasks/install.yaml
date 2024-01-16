@@ -1,0 +1,23 @@
+- name: Download headscale binary
+  become: true
+  become_user: root
+  become_method: sudo
+  ansible.builtin.apt:
+    deb: 'https://github.com/juanfont/headscale/releases/download/v{{ headscale_version }}/headscale_{{ headscale_version }}_linux_{{ architecture }}.deb'
+  notify: restart headscale
+
+- name: Enable headscale service
+  become: true
+  become_user: root
+  become_method: sudo
+  ansible.builtin.systemd_service:
+    name: headscale
+    enabled: true
+
+- name: Start headscale service
+  become: true
+  become_user: root
+  become_method: sudo
+  ansible.builtin.systemd_service:
+    name: headscale
+    state: started

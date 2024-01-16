@@ -1,0 +1,55 @@
+variables:
+  vars:
+    connection: "{{ lookup('community.sops.sops','{{ inventory_dir }}/vars/connection.sops.yaml') | ansible.builtin.from_yaml }}"
+  children:
+    local:
+    remote:
+    control_plane:
+
+local:
+  hosts:
+    tower:
+      ansible_host: "{{ connection.local.tower.host }}"
+      ansible_user: "{{ connection.local.tower.user }}"
+    rpi_1:
+      ansible_host: "{{ connection.local.rpi_1.host }}"
+      ansible_user: "{{ connection.local.rpi_1.user }}"
+    rpi_2:
+      ansible_host: "{{ connection.local.rpi_2.host }}"
+      ansible_user: "{{ connection.local.rpi_2.user }}"
+
+remote: 
+  hosts:
+    oracle_headscale:
+      ansible_host: "{{ connection.remote.oracle_headscale.host }}"
+      ansible_user: "{{ connection.remote.oracle_headscale.user }}"
+    oracle_control_plane:
+      ansible_host: "{{ connection.remote.oracle_control_plane.host }}"
+      ansible_user: "{{ connection.remote.oracle_control_plane.user }}"
+    amd_1:
+      ansible_host: "{{ connection.remote.amd_1.host }}"
+      ansible_user: "{{ connection.remote.amd_1.user }}"
+    amd_2:
+      ansible_host: "{{ connection.remote.amd_2.host }}"
+      ansible_user: "{{ connection.remote.amd_2.user }}"
+
+# Kubernetes cluster
+  
+control_plane:
+  hosts:
+    # tower:
+    oracle_control_plane:
+  vars:
+    k3s_control_node: true
+    k3s_become: true
+    k3s_state: installed
+    k3s_version: v1.29.0+k3s1
+    k3s_control_token: "{{ connection.k3s.token }}"
+    k3s_server:
+      datastore-endpoint: "{{ connection.database.url }}/k3s?sslmode=prefer"
+      vpn-auth: "name=tailscale,joinKey={{ connection.headscale.key }},controlServerURL={{ connection.headscale.url }},extraArgs=--accept-dns=false" # ! TODO only force reauth if already joined 
+      disable: traefik
+kubernetes:
+  children:
+    control_plane:
+

@@ -1,0 +1,26 @@
+repositories:
+  - name: uptime-kuma
+    url: https://helm.irsigler.cloud
+
+releases:
+  - name: uptime-kuma
+    chart: uptime-kuma/uptime-kuma
+    namespace: monitoring
+    values:
+      - ingress:
+          enabled: true
+          extraLabels:
+            app: uptime-kuma
+            scope: monitoring
+          hosts:
+            - host: uptime-kuma.joaovitor.local
+              paths:
+                - path: /
+                  pathType: Prefix
+                  backend:
+                    service: 
+                      name: uptime-kuma
+                      port: 
+                        number: 3001
+
+      

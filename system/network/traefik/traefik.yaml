@@ -1,0 +1,33 @@
+repositories:
+  - name: traefik
+    url: https://traefik.github.io/charts
+
+releases:
+  - name: traefik
+    chart: traefik/traefik
+    namespace: kube-system
+    values:
+      - additionalArguments: ["--api", "--api.insecure=true", "--log.level=DEBUG"]
+        affinity: {
+          "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+              "nodeSelectorTerms": [
+                {
+                  "matchExpressions": [
+                    {
+                      "key": "kubernetes.io/hostname",
+                      "operator": "In",
+                      "values": [
+                        "main"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+
+
+
+      

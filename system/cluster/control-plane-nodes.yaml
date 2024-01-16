@@ -1,0 +1,4 @@
+- name: Add control plane nodes
+  hosts: control_plane
+  roles:
+    - role: k3s

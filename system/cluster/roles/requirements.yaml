@@ -1,0 +1,4 @@
+- src: https://github.com/PyratLabs/ansible-role-k3s
+  scm: git
+  version: main
+  name: k3s

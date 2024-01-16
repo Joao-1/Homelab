@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: monica
+  labels:
+    app: monica
+    scope: management
+  namespace: management
+spec:
+  selector:
+    app: monica
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http

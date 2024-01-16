@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dashy
+  labels:
+    app: dashy
+    scope: management
+  namespace: management
+spec:
+  rules:
+  - host: dashy.joaovitor.local
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service: 
+              name: dashy
+              port: 
+                number: 80

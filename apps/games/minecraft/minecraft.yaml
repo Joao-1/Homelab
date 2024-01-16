@@ -1,0 +1,74 @@
+repositories:
+  - name: itzg
+    url: https://itzg.github.io/minecraft-server-charts
+
+environments:
+     
+
+releases:
+  - name: minecraft-server
+    chart: itzg/minecraft
+    version: 4.14.0
+    namespace: games
+    values:
+      # ref: https://github.com/itzg/minecraft-server-charts/blob/master/charts/minecraft/values.yaml
+      - image:
+          repository: itzg/minecraft-server
+          tag: latest
+          pullPolicy: IfNotPresent
+
+        resources:
+          requests:
+            memory: 4Gi
+            cpu: 2
+
+        persistence:
+          storageClass: "longhorn"
+          dataDir:
+            enabled: true
+            Size: 10Gi
+            subPath: minecraft
+
+        minecraftServer:
+          eula: "TRUE"
+          version: "1.20.4"
+          type: "PAPER"
+          paperDownloadUrl: "https://api.papermc.io/v2/projects/paper/versions/1.20.4/builds/370/downloads/paper-1.20.4-370.jar"
+          downloadWorldUrl: "https://drive.usercontent.google.com/download?id=1secY49XFwZVyPDJ_E2Di5661mMI2hlqD&export=download&authuser=0&confirm=t&uuid=8ff17f76-f345-423f-b2ba-77f0e32cf72e&at=APZUnTVT3tJMa5rl3R98wX84Piys%3A1705185303218"
+          difficulty: hard
+          whitelist:
+          ops: Darkiin
+          maxPlayers: 5
+          viewDistance: 16
+          gameMode: survival
+          motd: "Welcome to Minecraft on Kubernetes!"
+          icon: 
+          pvp: true
+          levelType: DEFAULT
+          worldSaveName: world
+          memory: 4G
+          overrideServerProperties: true
+
+          serviceType: NodePort
+          nodePort: 30000
+          servicePort: 25565
+          clusterIP:
+          pluginUrls: 
+            - https://dev.bukkit.org/projects/drivebackupv2/files/4554611/download
+
+        extraPorts:
+            - ingress:
+                enabled: true
+                extraLabels:
+                  app: minecraft
+                  scope: games
+                hosts:
+                  - host: minecraft.joaovitor.local
+                    paths:
+                      - path: /
+                        pathType: Prefix
+                        backend:
+                          service: 
+                            name: minecraft-server-minecraft
+                            port: 
+                              number: 25565
