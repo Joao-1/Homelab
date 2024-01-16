@@ -9,7 +9,7 @@ This project aims to develop and maintain my own home lab environment, utilizing
     - RAM: `16GB`
     - SSD: `240GB`
     - HD: `Seagate BarraCuda, 1TB`
-- 2x Respberry Pi `3`
+- 2x Raspberry Pi `3`
 #### Cloud
 - 2x Oracle `VM.Standard.A1.Flex` (free tier):
     - VPN Only:
