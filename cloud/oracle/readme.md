@@ -1,2 +1,0 @@
-### Maybe I should use modules to create the resources (but it's not necessary for now and the modules don't have a good support for the OCI provider)
-- https://github.com/garutilorenzo/oracle-cloud-terraform-examples/blob/master/README.md#how-to-find-the-availability-doamin-name

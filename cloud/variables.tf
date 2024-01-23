@@ -1,3 +1,21 @@
+# Homelab
+
+variable "homelab_domain" {
+  type        = string
+  description = "Domain name for the homelab"
+}
+
+# AWS
+variable "password" {
+  type = string
+}
+
+variable "home_ip" {
+  type = string
+}
+
+# Oracle
+
 variable "oracle_private_key_path" {
   type        = string
   description = "Path to the private key used for OCI authentication"
@@ -58,4 +76,11 @@ variable "availability_domain" {
 variable "compartment_ocid" {
   type        = string
   description = "Set the correct compartment OCID. See how to find the compartment OCID in the README"
+}
+
+# Cloudflare
+
+variable "cloudflare_api_token" {
+  type        = string
+  description = "Cloudflare API token"
 }
