@@ -5,29 +5,17 @@ repositories:
 releases:
   - name: traefik
     chart: traefik/traefik
-    namespace: kube-system
+    namespace: network
     values:
-      - additionalArguments: ["--api", "--api.insecure=true", "--log.level=DEBUG"]
-        affinity: {
-          "nodeAffinity": {
-            "requiredDuringSchedulingIgnoredDuringExecution": {
-              "nodeSelectorTerms": [
-                {
-                  "matchExpressions": [
-                    {
-                      "key": "kubernetes.io/hostname",
-                      "operator": "In",
-                      "values": [
-                        "main"
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        }
+      - deployment:
+          enabled: true
+          kind: DaemonSet
+          minReadySeconds: 5
 
+        globalArguments:
+          - "--global.checknewversion=false"
+          - "--global.sendanonymoususage=false"
 
-
-      
+        additionalArguments:
+          - "--serversTransport.insecureSkipVerify=true"
+          - "--log.level=DEBUG"
