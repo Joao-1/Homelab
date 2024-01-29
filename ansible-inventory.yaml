@@ -37,8 +37,8 @@ remote:
   
 control_plane:
   hosts:
-    # tower:
-    oracle_control_plane:
+    tower:
+    # oracle_control_plane:
   vars:
     k3s_control_node: true
     k3s_become: true
@@ -47,8 +47,9 @@ control_plane:
     k3s_control_token: "{{ connection.k3s.token }}"
     k3s_server:
       datastore-endpoint: "{{ connection.database.url }}/k3s?sslmode=prefer"
-      vpn-auth: "name=tailscale,joinKey={{ connection.headscale.key }},controlServerURL={{ connection.headscale.url }},extraArgs=--accept-dns=false" # ! TODO only force reauth if already joined 
+      vpn-auth: "name=tailscale,joinKey={{ connection.headscale.key }},controlServerURL={{ connection.headscale.url }},extraArgs=--accept-dns=false" # ! TODO - only force reauth if already joined 
       disable: traefik
+        
 kubernetes:
   children:
     control_plane:
