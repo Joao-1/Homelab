@@ -1,8 +1,0 @@
-APP:
-  env: production
-  debug: false
-  key: base64:{{ .Values.APP.key }}
-  domain: joaovitor.local
-HASH:
-  salt: teste
-  

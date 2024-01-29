@@ -1,6 +1,0 @@
-releases:
-  - name: monica
-    chart: ./chart
-    namespace: management
-    version: 0.1.0
-    values:
