@@ -15,3 +15,5 @@ releases:
           username: "fukurou"
           replicationUser: replicator
           existingSecret: "mysql"
+        architecture: "replication"
+        
