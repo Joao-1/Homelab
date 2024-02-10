@@ -35,4 +35,4 @@ terraform.rc
 
 connection.yaml
 
-secret.yaml
+*secret.yaml
