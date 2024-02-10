@@ -1,0 +1,22 @@
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+  - name: postgresql
+    chart: bitnami/postgresql-ha
+    namespace: storage
+    values:
+      - global:
+          postgresql:
+            existingSecret: "postgres"
+          pgpool:
+            existingSecret: "pgpool"
+          storageClass: "longhorn"
+        namespaceOverride: "storage"
+        postgresql:
+          image:
+            debug: true
+        pgpool:
+          image:
+            debug: true
